@@ -151,21 +151,25 @@ return {
     -- })
 
     -- tsgo (Effect/TSGo Language Server)
-    vim.lsp.config("tsgo", {
-      cmd = { "tsgo", "--lsp", "-stdio" },
+    vim.lsp.config("ts_ls", {
       filetypes = {
         "javascript",
         "javascriptreact",
         "typescript",
         "typescriptreact",
       },
+
+      -- В новом API маркеры корня проекта задаются через root_markers
+      root_markers = { "package.json", "tsconfig.json", "jsconfig.json", ".git" },
       single_file_support = true,
+
       init_options = {
         preferences = {
           includeCompletionsForModuleExports = true,
           includeCompletionsForImportStatements = true,
         },
       },
+
       settings = {
         typescript = {
           inlayHints = {
@@ -186,7 +190,21 @@ return {
       },
     })
 
-    -- gopls
+    vim.lsp.config("svelte", {
+      filetypes = { "svelte" },
+      root_markers = { "package.json", "svelte.config.js", "tsconfig.json", "jsconfig.json", ".git" },
+      settings = {
+        svelte = {
+          plugin = {
+            svelte = {
+              inlayHints = {
+                enable = false,
+              },
+            },
+          },
+        },
+      },
+    })
     -- vim.lsp.config("gopls", {
     --   settings = {
     --     gopls = {
@@ -268,11 +286,12 @@ return {
       -- "cssls",
       -- "emmet_language_server",
       -- "emmet_ls",
-      "tsgo",
+      "ts_ls",
       -- "gopls",
       -- "rust_analyzer",
       -- "astro",
       -- "tailwindcss",
+      "svelte",
     })
-  end,
+  end
 }

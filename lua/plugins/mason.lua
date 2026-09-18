@@ -20,7 +20,7 @@ return {
       automatic_enable = false,
       ensure_installed = {
         "lua_ls",
-        "tsgo",
+        "ts_ls",
         "html",
         "cssls",
         "tailwindcss",
@@ -31,6 +31,7 @@ return {
         "ols",
         "ruff",
         "ty",
+        "svelte",
       },
     })
     require("mason-tool-installer").setup({
