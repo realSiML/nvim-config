@@ -80,14 +80,11 @@ return {
       vim.diagnostic.config({ virtual_text = not current })
     end, { desc = "Toggle LSP virtual text" })
 
-    -- NOTE: Setup servers
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
-
     vim.lsp.config('*', { capabilities = capabilities })
 
-    -- Configure and enable LSP servers
-    -- lua_ls
+    -- NOTE: lua_ls
     vim.lsp.config("lua_ls", {
       settings = {
         Lua = {
@@ -113,184 +110,21 @@ return {
       },
     })
 
-    -- emmet_language_server
-    -- vim.lsp.config("emmet_language_server", {
-    --   filetypes = {
-    --     "css",
-    --     "html",
-    --     "javascript",
-    --     "javascriptreact",
-    --     "less",
-    --     "typescriptreact",
-    --   },
-    --   init_options = {
-    --     includeLanguages = {},
-    --     excludeLanguages = {},
-    --     extensionsPath = {},
-    --     preferences = {},
-    --     showAbbreviationSuggestions = true,
-    --     showExpandedAbbreviation = "always",
-    --     showSuggestionsAsSnippets = false,
-    --     syntaxProfiles = {},
-    --     variables = {},
-    --   },
-    -- })
-
-    -- emmet_ls
-    -- vim.lsp.config("emmet_ls", {
-    --   filetypes = {
-    --     "html",
-    --     "typescriptreact",
-    --     "javascriptreact",
-    --     "css",
-    --     "sass",
-    --     "scss",
-    --     "less",
-    --     "svelte",
-    --   },
-    -- })
-
-    -- tsgo (Effect/TSGo Language Server)
-    vim.lsp.config("ts_ls", {
-      filetypes = {
-        "javascript",
-        "javascriptreact",
-        "typescript",
-        "typescriptreact",
-      },
-
-      -- В новом API маркеры корня проекта задаются через root_markers
-      root_markers = { "package.json", "tsconfig.json", "jsconfig.json", ".git" },
-      single_file_support = true,
-
-      init_options = {
-        preferences = {
-          includeCompletionsForModuleExports = true,
-          includeCompletionsForImportStatements = true,
-        },
-      },
-
-      settings = {
-        typescript = {
-          inlayHints = {
-            includeInlayParameterNameHints = "all",
-            includeInlayVariableTypeHints = true,
-            includeInlayFunctionParameterTypeHints = true,
-          },
-        },
-        javascript = {
-          validate = {
-            enable = true,
-          },
-          inlayHints = {
-            includeInlayParameterNameHints = "all",
-            includeInlayVariableTypeHints = true,
-          },
-        },
-      },
-    })
-
-    vim.lsp.config("svelte", {
-      filetypes = { "svelte" },
-      root_markers = { "package.json", "svelte.config.js", "tsconfig.json", "jsconfig.json", ".git" },
-      settings = {
-        svelte = {
-          plugin = {
-            svelte = {
-              inlayHints = {
-                enable = false,
-              },
-            },
-          },
-        },
-      },
-    })
-    -- vim.lsp.config("gopls", {
-    --   settings = {
-    --     gopls = {
-    --       analyses = {
-    --         unusedparams = true,
-    --       },
-    --       staticcheck = true,
-    --       gofumpt = true,
-    --     },
-    --   },
-    -- })
-
-    -- css
-    -- vim.lsp.config("cssls", {
-    --   filetypes = { "css", "scss", "less" },
-    --   init_options = { provideFormatter = true },
-    --   single_file_support = true,
-    --   settings = {
-    --     css = {
-    --       lint = {
-    --         unknownAtRules = "ignore",
-    --       },
-    --       validate = true
-    --     },
-    --     scss = {
-    --       lint = {
-    --         unknownAtRules = "ignore"
-    --       },
-    --       validate = true
-    --     },
-    --     less = {
-    --       lint = {
-    --         unknownAtRules = "ignore"
-    --       },
-    --       validate = true
-    --     },
-    --   },
-    -- })
-
-    -- tailwind
-    -- vim.lsp.config("tailwindcss", {
-    --   filetypes = {
-    --     "html",
-    --     "css",
-    --     "javascript",
-    --     "typescript",
-    --     "javascriptreact",
-    --     "typescriptreact",
-    --     "svelte",
-    --     "vue",
-    --     "astro",
-    --   },
-    --   init_options = {
-    --     userLanguages = {
-    --       astro = "html",
-    --     },
-    --   },
-    -- })
-
-    -- astro
-    -- vim.lsp.config("astro", {
-    --   filetypes = { "astro" },
-    --
-    --   init_options = {
-    --     typescript = {
-    --       tsdk = vim.fn.stdpath("data") .. "/mason/packages/typescript-language-server/node_modules/typescript/lib"
-    --     }
-    --   },
-    -- })
-
     -- Instead of using mason enable all configured LSP via `automatic_enable=true`
     -- Prefer more control by enable manual server call below via vim.lsp.enable("")
     -- mason config: lua/sethy/plugins/lsp/mason.lua:22
     vim.lsp.enable({
       "lua_ls",
-      "marksman",
-      "ruff",
-      "ty",
-      -- "cssls",
-      -- "emmet_language_server",
-      -- "emmet_ls",
+      -- "marksman",
+      -- "ruff",
+      -- "ty",
+      "cssls",
+      "emmet_language_server",
       "ts_ls",
       -- "gopls",
       -- "rust_analyzer",
       -- "astro",
-      -- "tailwindcss",
+      "tailwindcss",
       "svelte",
     })
   end
